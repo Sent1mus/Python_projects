@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-wallets-table" author="master">
+        <createTable tableName="wallets">
+            <column name="uuid" type="varchar(36)">
+                <constraints unique="true"/>
+            </column>
+            <column name="balance" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="uuid" tableName="wallets"/>
+    </changeSet>
+
+    <changeSet id="create-operations-table" author="master">
+        <createTable tableName="operations">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="wallet_uuid" type="varchar(36)"/>
+            <column name="amount" type="decimal(19,2)"/>
+            <column name="timestamp" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
